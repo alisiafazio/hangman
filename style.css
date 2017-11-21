@@ -1,0 +1,17 @@
+body {
+    text-align: center;
+    font-family: "Al Tarikh";
+    background-color: cadetblue;
+    color: white;
+}
+
+button {
+    font-family: "Bradley Hand";
+    font-size: medium;
+    border: thin;
+    color: black;
+    background-color: white;
+    padding:15px 15px;
+    margin: 10px;
+}
+
