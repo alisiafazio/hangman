@@ -35,6 +35,7 @@ function printWord(){
 
 function letters(userGuess){
     guessedLetters.push(userGuess);
+    console.log(guesses);
     if(word.indexOf(userGuess) <= -1 ) {
         guesses--;
     }
