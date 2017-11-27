@@ -1,4 +1,4 @@
-var guesses = 10;
+var guesses = 6;
 var word= "";
 var guessedLetters= [];
 var words = ["HELLO", "APPLES", "CHOCOLATE", "BASEBALL", "DOG-PARK", "RESTAURANT", "PENGUIN", "BISON", "DOGS", "GIRAFFE",
@@ -6,7 +6,7 @@ var words = ["HELLO", "APPLES", "CHOCOLATE", "BASEBALL", "DOG-PARK", "RESTAURANT
 var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", "-"];
 
 function startGame(){
-    guesses = 10;
+    guesses = 6;
     guessedLetters= [];
     var rand = words[Math.floor(Math.random() * words.length)];
     console.log(rand);
@@ -23,6 +23,9 @@ function printWord(){
         }else{
             ret += "_ ";
         }
+        // if(ret != "_ "){
+        //     return document.getElementById("win").innerHTML = "You have won the game!";
+        // }
     }
     console.log(ret);
 
@@ -35,11 +38,29 @@ function letters(userGuess){
     if(word.indexOf(userGuess) <= -1 ) {
         guesses--;
     }
-    if(guesses <=   0 ){
+    if(guesses <= 0){
         return document.getElementById("lose").innerHTML = "You have lost the game!";
     }
     printWord();
     letterPopulate();
+    // if(word.indexOf(userGuess) == 5 ){
+    //     return document.getElementById("image").innerHTML = '<img src="img/hangman1.png">'
+    // }
+    // if(word.indexOf(userGuess) == 4 ){
+    //     return document.getElementById("image1").innerHTML = '<img src="img/hangman2.png">'
+    // }
+    // if(word.indexOf(userGuess) == 3 ){
+    //     return document.getElementById("image2").innerHTML = '<img src="img/hangman3.png">'
+    // }
+    // if(word.indexOf(userGuess) == 2 ){
+    //     return document.getElementById("image3").innerHTML = '<img src="img/hangman4.png">'
+    // }
+    // if(word.indexOf(userGuess) == 1 ){
+    //     return document.getElementById("image4").innerHTML = '<img src="img/hangman5.png">'
+    // }
+    // if(word.indexOf(userGuess) == 0 ){
+    //     return document.getElementById("image5").innerHTML = '<img src="img/hangman6.png">'
+    // }
 }
 
 function letterPopulate(){
@@ -55,4 +76,9 @@ function letterPopulate(){
     }
     return document.getElementById("buttons").innerHTML = rt;
 }
- // c
+
+function levelOfDifficulty(){
+    if(word.indexOf(userGuess) <= -1 ){
+
+    }
+}
