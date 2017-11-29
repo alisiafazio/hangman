@@ -1,16 +1,32 @@
 var guesses = 6;
 var word= "";
 var guessedLetters= [];
-var words = ["HELLO", "APPLES", "CHOCOLATE", "BASEBALL", "DOG-PARK", "RESTAURANT", "PENGUIN", "BISON", "DOGS", "GIRAFFE",
-    "KOALA", "STRAWBERRY", "TANGERINE", "FONDUE"];
+var easy = ["HELLO", "APPLES",  "DOGS", "GIRAFFE", "KOALA", "STRAWBERRY", "COFFEE"];
+var medium = ["CHOCOLATE", "BASEBALL", "PENGUIN", "BISON"];
+var hard = ["DOG-PARK", "TANGERINE", "FONDUE", "RESTAURANT", "TELEVISION"];
 var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", "-"];
 
-function startGame(){
+function startGame(difficulty){
     guesses = 6;
     guessedLetters= [];
-    var rand = words[Math.floor(Math.random() * words.length)];
-    console.log(rand);
-    word = rand;
+    document.getElementById("lose").innerHTML = "";
+    document.getElementById("win").innerHTML = "";
+
+    if(difficulty == 3){
+        var runEasy = easy[Math.floor(Math.random() * easy.length)];
+        word = runEasy;
+        console.log(word);
+    }
+    if(difficulty == 2){
+        var runMedium = medium[Math.floor(Math.random() * medium.length)];
+        word = runMedium;
+        console.log(word);
+    }
+    if(difficulty == 1){
+        var runHard = hard[Math.floor(Math.random() * hard.length)];
+        word = runHard;
+        console.log(word);
+    }
     printWord();
     letterPopulate();
 }
@@ -23,47 +39,34 @@ function printWord(){
         }else{
             ret += "_ ";
         }
-        // if(ret != "_ "){
-        //     return document.getElementById("win").innerHTML = "You have won the game!";
-        // }
-    }
-    console.log(ret);
-
         document.getElementById("ret").innerHTML = ret;
         document.getElementById("guess").innerHTML = "You have " + guesses + " guesses remaining!";
+    }
+    console.log(ret);
+    return ret;
 }
 
 function letters(userGuess){
     guessedLetters.push(userGuess);
-    console.log(guesses);
+    console.log("before=" + guesses);
     if(word.indexOf(userGuess) <= -1 ) {
         guesses--;
+        console.log("after=" + guesses);
+        hangmanImage();
     }
     if(guesses <= 0){
-        return document.getElementById("lose").innerHTML = "You have lost the game!";
+        document.getElementById("lose").innerHTML = "You have lost the game!";
     }
-    printWord();
+    var ret = printWord();
+    if (ret.indexOf("_") == -1){
+        return document.getElementById("win").innerHTML = "You have won the game!";
+    }
     letterPopulate();
-    // if(word.indexOf(userGuess) == 5 ){
-    //     return document.getElementById("image").innerHTML = '<img src="img/hangman1.png">'
-    // }
-    // if(word.indexOf(userGuess) == 4 ){
-    //     return document.getElementById("image1").innerHTML = '<img src="img/hangman2.png">'
-    // }
-    // if(word.indexOf(userGuess) == 3 ){
-    //     return document.getElementById("image2").innerHTML = '<img src="img/hangman3.png">'
-    // }
-    // if(word.indexOf(userGuess) == 2 ){
-    //     return document.getElementById("image3").innerHTML = '<img src="img/hangman4.png">'
-    // }
-    // if(word.indexOf(userGuess) == 1 ){
-    //     return document.getElementById("image4").innerHTML = '<img src="img/hangman5.png">'
-    // }
-    // if(word.indexOf(userGuess) == 0 ){
-    //     return document.getElementById("image5").innerHTML = '<img src="img/hangman6.png">'
-    // }
 }
 
+function hangmanImage(){
+    document.getElementById("image").innerHTML = "<img src = 'img/guess" + guesses + ".png'>'";
+}
 function letterPopulate(){
     var rt = "";
     for (var i = 0; i < alphabet.length; i++) {
@@ -76,10 +79,4 @@ function letterPopulate(){
         }
     }
     return document.getElementById("buttons").innerHTML = rt;
-}
-
-function levelOfDifficulty(){
-    if(word.indexOf(userGuess) <= -1 ){
-
-    }
 }
