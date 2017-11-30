@@ -2,8 +2,8 @@ var guesses = 6;
 var word= "";
 var guessedLetters= [];
 var easy = ["HELLO", "APPLES",  "DOGS", "GIRAFFE", "KOALA", "STRAWBERRY", "COFFEE"];
-var medium = ["CHOCOLATE", "BASEBALL", "PENGUIN", "BISON"];
-var hard = ["DOG-PARK", "TANGERINE", "FONDUE", "RESTAURANT", "TELEVISION"];
+var medium = ["CHOCOLATE", "BASEBALL", "PENGUIN", "BISON", "DIVORCE"];
+var hard = ["DOG-PARK", "TANGERINE", "FONDUE", "RESTAURANT", "TELEVISION", "BANKRUPTCY"];
 var alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", "-"];
 
 function startGame(difficulty){
@@ -11,6 +11,7 @@ function startGame(difficulty){
     guessedLetters= [];
     document.getElementById("lose").innerHTML = "";
     document.getElementById("win").innerHTML = "";
+    document.getElementById("image").innerHTML = "";
 
     if(difficulty == 3){
         var runEasy = easy[Math.floor(Math.random() * easy.length)];
@@ -40,28 +41,29 @@ function printWord(){
             ret += "_ ";
         }
         document.getElementById("ret").innerHTML = ret;
-        document.getElementById("guess").innerHTML = "You have " + guesses + " guesses remaining!";
+        document.getElementById("guess").innerHTML = "You have " + guesses + " guesses remaining after this!";
     }
     console.log(ret);
     return ret;
 }
 
 function letters(userGuess){
-    guessedLetters.push(userGuess);
-    console.log("before=" + guesses);
-    if(word.indexOf(userGuess) <= -1 ) {
-        guesses--;
-        console.log("after=" + guesses);
-        hangmanImage();
+    if(guesses > 0) {
+        guessedLetters.push(userGuess);
+        console.log("before=" + guesses);
+        if (word.indexOf(userGuess) <= -1) {
+            guesses--;
+            console.log("after=" + guesses);
+            hangmanImage();
+        }
+        var ret = printWord();
+        if (ret.indexOf("_") == -1) {
+            return document.getElementById("win").innerHTML = "You have won the game!";
+        }
+        letterPopulate();
+    } else {
+       document.getElementById("lose").innerHTML = "You have lost the game! Select a different level of difficulty to play again.";
     }
-    if(guesses <= 0){
-        document.getElementById("lose").innerHTML = "You have lost the game!";
-    }
-    var ret = printWord();
-    if (ret.indexOf("_") == -1){
-        return document.getElementById("win").innerHTML = "You have won the game!";
-    }
-    letterPopulate();
 }
 
 function hangmanImage(){
